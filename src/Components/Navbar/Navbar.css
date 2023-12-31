@@ -1,0 +1,23 @@
+.nav {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 65px;
+    display: flex;
+    position: fixed;
+    position: absolute;
+    align-items: center;
+    background: #F4F4F4;
+    justify-content: space-evenly;
+}
+
+.nav-links {
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #118ab2;
+}
+
+.nav-icon {
+    font-size: 25px;
+}

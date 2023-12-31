@@ -1,0 +1,76 @@
+// src/components/MusicPlayer.js
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const MusicPlayer = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchQuery}&key=AIzaSyBqE8OMbdKd-7NOT_LBvkgATb8huk3sPHI`
+      );
+
+      setVideos(response.data.items);
+      console.log(response.data.items)
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+    }
+  };
+
+  const handleSelectVideo = (video) => {
+    setSelectedVideo(video);
+  };
+
+  return (
+    <div>
+      <h1>YouTube Musiqa Tinglash</h1>
+      <input
+        type="text"
+        placeholder="Musiqa nomi yoki izlanish so'zi"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+      <button onClick={handleSearch}>Qidirish</button>
+
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '50%' }}>
+          <h2>Topilgan Videolar</h2>
+          <ul>
+            {videos.map((video) => (
+              <li key={video.id.videoId}>
+                <button onClick={() => handleSelectVideo(video)}>
+                  {video.snippet.title}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div style={{ width: '50%' }}>
+          {selectedVideo && (
+            <div>
+              <h2>Tanlangan Video</h2>
+              <iframe
+                title="YouTube Video Player"
+                width="100%"
+                height="315"
+                src={`https://www.youtube.com/embed/${selectedVideo.id.videoId}`}
+                frameBorder="0"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MusicPlayer;
+
+// last fm api key
+apiKey = 'ab620fcc763445f5d0bea04c5ca1c227'
+http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${apiKey}&format=json

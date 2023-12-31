@@ -1,0 +1,54 @@
+.login {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    padding: 22px;
+    align-items: center;
+    background: #212529;
+    justify-content: center;
+}
+
+.login-card {
+    width: 350px;
+    height: 450px;
+    padding: 10px 20px;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 15px 15px 1px #00b4d8,
+                -10px -10px 1px #00b4d8;
+}
+
+.login-logo {
+    width: 150px;
+    height: 150px;
+}
+
+form input {
+    width: 100%;
+    height: 35px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    padding: 2px 5px;
+    margin-top: 1rem;
+    text-transform: lowercase;
+    border-bottom: 3px solid #00b4d8;
+}
+
+.go {
+    width: 100%;
+    height: 35px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+    margin-top: 1rem;
+    border-radius: 10px;
+    background: transparent;
+    border: 2px solid #00b4d8;
+}
+
+.go:hover {
+    color: #fff;
+    background: #00b4d8;
+}
