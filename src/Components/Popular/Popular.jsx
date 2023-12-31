@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 
 const Popular = () => {
-  const [popularMusic, setPopularMusic] = useState()
+  const [popularMusic, setPopularMusic] = useState([])
   const [musicModal, setMusicModal] = useState(false)
 
   const musicModalToggle = () => {
