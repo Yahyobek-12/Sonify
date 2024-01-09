@@ -1,30 +1,71 @@
 import './Home.css'
-import { useState } from 'react';
-import { IoIosSearch } from "react-icons/io";
-import { CiCircleRemove } from "react-icons/ci";
-import Popular from '../Popular/Popular';
-
+import axios from 'axios'
+import { useState } from 'react'
+import ReactPlayer from 'react-player'
+import { FcSearch } from "react-icons/fc";
+import { TbDeviceAirpods } from "react-icons/tb";
 
 const Home = () => {
-  const [searchToggle, setSearchToggle] = useState(false)
+  const [videos, setVideos] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedVideo, setSelectedVideo] = useState(null)
 
+  const searchHandler = async () => {
+    try {
+      const response = await axios.get(`
+        https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${searchQuery}&key=AIzaSyBqE8OMbdKd-7NOT_LBvkgATb8huk3sPHI
+      `)
+      setVideos(response.data.items)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const selectedHandler = (video) => {
+    setSelectedVideo(video)
+  }
+    
   return (
     <div className='home'>
-      <div className="top-home">
-        <h2><span>sonify</span> music</h2>
-        <IoIosSearch className='search-icon' onClick={() => setSearchToggle(!searchToggle)} />
-        <div className={searchToggle ? "search-bar-active" : 'search-bar'}>
-          <div className="with">
-            <input type="text" className="search" placeholder='write music name' />
-            <IoIosSearch className='click-search' />
-          </div>
-          <CiCircleRemove className='remove-search-bar' onClick={() => setSearchToggle(!searchToggle)} />
+        <div className="logo">
+            <h3>sonify <span>music</span></h3>
         </div>
-      </div>
-      <div className="popular-comp">
-        <h2>popular musics</h2>
-        <Popular />
-      </div>
+        <div className="search-bar">
+            <input type="text" placeholder='search music' className='search-inp' 
+            value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            <FcSearch className='search-btn' onClick={searchHandler} />
+        </div>
+        
+        <div className="result">
+          <h3>result for {searchQuery}</h3>
+          {videos.map((video) => (
+            <div className='result-music' key={video.id.videoId}>
+              <TbDeviceAirpods className='listen-btn' onClick={() => selectedHandler(video)} />
+              <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className='music-image' />
+              <h5 className="music-title">{video.snippet.title.slice(0, 12)}</h5>
+            </div>
+          ))}
+        </div>
+
+        <div className="selected">
+          {selectedVideo && (
+            <div className="selected-video">
+              <ReactPlayer url={`https://www.youtube.com/embed/${selectedVideo.id.videoId}`}
+              width='100%' />
+                {videos.map((video) => (
+                  <>
+                    {selectedVideo.id.videoId === video.id.videoId && (
+                      <div className="about-video">
+                        <h3 className='channel'>channel: {video.snippet.channelTitle}</h3>
+                        <p className="description">{video.snippet.description}</p>
+                      </div>
+                    )}
+                  </>
+                ))}
+            </div>
+          )}
+        </div>
     </div>
   )
 }

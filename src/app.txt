@@ -71,6 +71,9 @@ const MusicPlayer = () => {
 
 export default MusicPlayer;
 
-// last fm api key
+// youtube music api key
+https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${ixtiyori}&key=AIzaSyBqE8OMbdKd-7NOT_LBvkgATb8huk3sPHI
+
+// last.fm api key
 apiKey = 'ab620fcc763445f5d0bea04c5ca1c227'
 http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${apiKey}&format=json
