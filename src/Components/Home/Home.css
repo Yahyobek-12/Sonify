@@ -173,3 +173,12 @@
     width: 300px;
     height: 300px;
 }
+
+/* MEDIA SCEEN */
+
+@media only screen and (max-width: 390px) {
+    .note img {
+        width: 150px;
+        height: 150px;
+    }
+}
