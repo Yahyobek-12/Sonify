@@ -2,8 +2,11 @@ import './Home.css'
 import axios from 'axios'
 import { useState } from 'react'
 import ReactPlayer from 'react-player'
+import noteImg from '../Images/mac-1.jpg'
 import { FcSearch } from "react-icons/fc";
-import { TbDeviceAirpods } from "react-icons/tb";
+import { IoHeadset } from "react-icons/io5";
+import { IoMdArrowRoundBack } from "react-icons/io";
+
 
 const Home = () => {
   const [videos, setVideos] = useState([])
@@ -28,9 +31,11 @@ const Home = () => {
     
   return (
     <div className='home'>
+
         <div className="logo">
             <h3>sonify <span>music</span></h3>
         </div>
+
         <div className="search-bar">
             <input type="text" placeholder='search music' className='search-inp' 
             value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
@@ -38,10 +43,10 @@ const Home = () => {
         </div>
         
         <div className="result">
-          <h3>result for {searchQuery}</h3>
+          <h3>result for <span>{searchQuery}</span></h3>
           {videos.map((video) => (
             <div className='result-music' key={video.id.videoId}>
-              <TbDeviceAirpods className='listen-btn' onClick={() => selectedHandler(video)} />
+              <IoHeadset className='listen-btn' onClick={() => selectedHandler(video)} />
               <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} className='music-image' />
               <h5 className="music-title">{video.snippet.title.slice(0, 12)}</h5>
             </div>
@@ -51,6 +56,9 @@ const Home = () => {
         <div className="selected">
           {selectedVideo && (
             <div className="selected-video">
+              <div className="back-home">
+                <IoMdArrowRoundBack className='back-home-icon' /> <p>home</p>
+              </div>
               <ReactPlayer url={`https://www.youtube.com/embed/${selectedVideo.id.videoId}`}
               width='100%' />
                 {videos.map((video) => (
@@ -58,14 +66,22 @@ const Home = () => {
                     {selectedVideo.id.videoId === video.id.videoId && (
                       <div className="about-video">
                         <h3 className='channel'>channel: {video.snippet.channelTitle}</h3>
-                        <p className="description">{video.snippet.description}</p>
+                        <p className="created">created at: {video.snippet.publishTime.slice(0, 10)}</p>
                       </div>
                     )}
                   </>
                 ))}
+                <div className="more">
+                  <p>similar videos</p>
+                </div>
             </div>
           )}
         </div>
+
+        <div className="note">
+              <img src={noteImg} alt="note-img" />        
+        </div>
+
     </div>
   )
 }
