@@ -2,7 +2,7 @@ import './Home.css'
 import axios from 'axios'
 import { useState } from 'react'
 import ReactPlayer from 'react-player'
-import noteImg from '../Images/mac-1.jpg'
+import noteImg from '../Images/logo.webp'
 import { FcSearch } from "react-icons/fc";
 import { IoHeadset } from "react-icons/io5";
 import { IoMdArrowRoundBack } from "react-icons/io";
